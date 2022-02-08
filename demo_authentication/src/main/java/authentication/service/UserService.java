@@ -1,5 +1,7 @@
 package authentication.service;
 
+import authentication.entity.ERole;
+import authentication.entity.Role;
 import authentication.entity.User;
 import authentication.repository.RoleRepository;
 import authentication.repository.UserRepository;
@@ -42,6 +44,15 @@ public class UserService {
             user.setId(id);
         }
         save(user);
+    }
+
+    public Boolean existByUserName(String username){
+        return userRepo.existsByUsername(username);
+    }
+
+    public Role findByName(ERole role) {
+        return roleRepo.findByName(role)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
     }
 
     public void deleteById(Integer id) {
